@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Images to recipes</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <h1>
+            Upload grocery store items (fruits/vegetables)
+          </h1>
+          <hr />
+
+          <form
+            action="/upload-image"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <div class="form-group">
+              <label>Select image</label>
+              <div class="custom-file">
+                <input
+                  type="file"
+                  class="custom-file-input"
+                  name="image"
+                  id="image"
+                />
+                <!-- <label class="custom-file-label" for="image"
+                  >Select image...</label
+                > -->
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Upload</button>
+          </form>
+          <div>
+            Images already uploaded:
+            <br />
+            {% for img in imgs %}
+            <img style="width: 300px;" src="/static/{{img}}" />
+            <br />
+            {% endfor %}
+          </div>
+
+          <form
+            action="/classify-images"
+            method="POST"
+            enctype="multipart/form-data"
+          >
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+
+          <div>
+            Image predictions: {{predictions}}
+          </div>
+
+          <div>
+            Recipe suggestions: {% for r in recipes %}
+            <h2>{{r["title"]}}</h2>
+            <br />
+            <img src="{{r['image']}}" style="width: 500px" />
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
